@@ -41,8 +41,20 @@ public class PersonController {
         if (!removed) {
             return id + "번 사람이 존재하지 않습니다.";
         }
-
         return String.format("%d 번 사람이 삭제되었습니다.", id);
+    }
+
+
+    @GetMapping("/person/modify")
+    @ResponseBody
+    public String modify(int id, String name, int age) {
+        Person findPerson = people.stream().filter(p -> p.getId() == id).findFirst().orElse(null);
+
+        if (findPerson == null) {
+            return String.format("%d 번 사람이 존재하지 않습니다.", id);
+        }
+
+        return String.format("%d 번 사람이 수정되었습니다.", id);
     }
 
     @GetMapping("person/people")
@@ -52,6 +64,7 @@ public class PersonController {
         return people;
     }
 }
+
 
 @AllArgsConstructor
 @Getter
