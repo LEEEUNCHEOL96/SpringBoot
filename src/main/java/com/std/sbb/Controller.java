@@ -84,7 +84,7 @@ public class Controller {
     @GetMapping("/home/car")
     @ResponseBody
     public Car showReturnCar(){
-        Car car = new Car(1, 100, "벤츠", new ArrayList<>());
+        Car car = new Car (1, 100, "벤츠", new ArrayList<>());
 
         car.setId(2);
         car.setSpeed(200);
@@ -95,10 +95,10 @@ public class Controller {
             add(4);
         }});
 
-        car.getId();
-        car.getSpeed();
-        car.getName();
-        car.getIds();
+        System.out.println( car.getId());
+        System.out.println( car.getSpeed());
+        System.out.println( car.getName());
+        System.out.println( car.getIds());
 
 
 
