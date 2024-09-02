@@ -5,12 +5,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 @org.springframework.stereotype.Controller
 public class Controller {
     private int count;
     private int count2;
+    private static List<AddPerson> people = new ArrayList<>();
 
 
     // 생성자 함수를 통해 정의하는게 더욱 깔끔한 코딩이다.
@@ -81,6 +83,7 @@ public class Controller {
                       @RequestParam(value = "b" ,defaultValue = "0") int b){
         return a / b;
     }
+
     @GetMapping("/home/car")
     @ResponseBody
     public Car showReturnCar(){
@@ -100,8 +103,26 @@ public class Controller {
         System.out.println( car.getName());
         System.out.println( car.getIds());
 
-
-
         return car;
+    }
+
+    @GetMapping("/home/addPerson")
+    @ResponseBody
+    public String  addPerson  (@RequestParam(value = "name",defaultValue = "") String name,
+                               @RequestParam(value = "age",defaultValue = "0") int age){
+
+        AddPerson person = new AddPerson(count2 ,name, age);
+        people.add(person);
+
+        count2++;
+        return count2 + "번 사람이 추가되었습니다. " ;
+
+
+    }
+
+    @GetMapping ("/home/people")
+    @ResponseBody
+    public String people (){
+        return people.toString();
     }
 }
