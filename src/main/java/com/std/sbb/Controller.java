@@ -20,7 +20,7 @@ public class Controller {
     public String main2(){
         return "반갑습니다.";
     }
-
+    // test
     @GetMapping("/home/main3")
     @ResponseBody
     public int main3(){
