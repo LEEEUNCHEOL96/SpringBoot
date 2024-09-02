@@ -4,6 +4,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+
 
 @org.springframework.stereotype.Controller
 public class Controller {
@@ -78,5 +80,28 @@ public class Controller {
     public int divide(@RequestParam(value = "a" ,defaultValue = "0") int a,
                       @RequestParam(value = "b" ,defaultValue = "0") int b){
         return a / b;
+    }
+    @GetMapping("/home/car")
+    @ResponseBody
+    public Car showReturnCar(){
+        Car car = new Car(1, 100, "벤츠", new ArrayList<>());
+
+        car.setId(2);
+        car.setSpeed(200);
+        car.setName("아우디");
+        car.setIds(new ArrayList<>(){{
+            add(2);
+            add(3);
+            add(4);
+        }});
+
+        car.getId();
+        car.getSpeed();
+        car.getName();
+        car.getIds();
+
+
+
+        return car;
     }
 }
