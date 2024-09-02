@@ -17,20 +17,32 @@ public class PersonController {
     int lastId;
     List<Person> people;
 
-    PersonController () {
+    PersonController() {
         lastId = 0;
         people = new ArrayList<>();
     }
 
     @GetMapping("/person/add")
     @ResponseBody
-    public String addPerson(@RequestParam("name") String name, @RequestParam("age") int age) {
+    public String addPerson(@RequestParam("name") String name,
+                            @RequestParam("age") int age) {
         lastId++;
         Person p = new Person(lastId, age, name);
 
         people.add(p);
 
         return String.format("%d 번째 사람이 추가 되었습니다.", p.getId());
+    }
+
+    @GetMapping("/person/remove")
+    @ResponseBody
+    public String removePerson(int id) {
+        boolean removed = people.removeIf(person -> person.getId() == id);
+        if (!removed) {
+            return id + "번 사람이 존재하지 않습니다.";
+        }
+
+        return String.format("%d 번 사람이 삭제되었습니다.", id);
     }
 
     @GetMapping("person/people")
