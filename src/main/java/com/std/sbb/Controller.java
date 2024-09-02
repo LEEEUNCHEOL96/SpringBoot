@@ -12,8 +12,6 @@ public class Controller {
     private int count;
     private int count2;
 
-
-    // 생성자 함수를 통해 정의하는게 더욱 깔끔한 코딩이다.
     Controller(){
         count = -1;
         count2 = 1;
@@ -81,6 +79,7 @@ public class Controller {
                       @RequestParam(value = "b" ,defaultValue = "0") int b){
         return a / b;
     }
+
     @GetMapping("/home/car")
     @ResponseBody
     public Car showReturnCar(){
@@ -99,8 +98,6 @@ public class Controller {
         System.out.println( car.getSpeed());
         System.out.println( car.getName());
         System.out.println( car.getIds());
-
-
 
         return car;
     }
