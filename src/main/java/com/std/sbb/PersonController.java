@@ -34,6 +34,7 @@ public class PersonController {
         return String.format("%d 번째 사람이 추가 되었습니다.", p.getId());
     }
 
+
     @GetMapping("/person/remove")
     @ResponseBody
     public String removePerson(@RequestParam("id") int id) {
@@ -51,6 +52,7 @@ public class PersonController {
         }
 
         return id + "번째 사람이 삭제되었습니다.";
+      
         // return String.format ("%d번째 사람이 삭제되었습니다.",id);
 
 /*      // 삭제 방법_ver.2 == ver.1 의 축약
@@ -71,18 +73,21 @@ public class PersonController {
 
         for ( Person person : people){
             if ( person.getId() == id){
+
                 findPerson = person;
             }
         }
 
+
         if (findPerson == null){
             return String.format("%d번 사람이 존재하지 않습니다.",id);
         }else {
+
             findPerson.setName(name);
             findPerson.setAge(age);
-        }
 
         return String.format("%d번 사람이 수정되었습니다.",id);
+
 
 
 /*        // 수정 방법_ver.2
@@ -94,6 +99,7 @@ public class PersonController {
 
         return String.format("%d 번 사람이 수정되었습니다.", id);*/
     }
+
 
     @GetMapping("person/people")
     @ResponseBody
