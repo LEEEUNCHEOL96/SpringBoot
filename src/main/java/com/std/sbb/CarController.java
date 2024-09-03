@@ -54,7 +54,6 @@ public class CarController {
         return id + "번 자동차가 삭제되었습니다.";
     }
 
-
     @GetMapping("/car/modify")
     @ResponseBody
     public String modifyCar(@RequestParam("id") int id,
@@ -97,3 +96,4 @@ class Cars {
     private String name;
     private String madeBy;
 }
+
