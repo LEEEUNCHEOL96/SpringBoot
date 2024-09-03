@@ -34,6 +34,7 @@ public class PersonController {
         return String.format("%d 번째 사람이 추가 되었습니다.", p.getId());
     }
 
+
     @GetMapping("/person/remove")
     @ResponseBody
     public String removePerson(@RequestParam("id") int id) {
@@ -65,15 +66,38 @@ public class PersonController {
 
     @GetMapping("/person/modify")
     @ResponseBody
-    public String modify(int id, String name, int age) {
+    public String modify(@RequestParam("id") int id,
+                         @RequestParam("name") String name,
+                         @RequestParam("age") int age) {
+        // 수정 방법_ver.1
+        Person findPerson = null;
+
+        for (Person person : people) {
+            if (person.getId() == id) {
+                findPerson = person;
+            }
+        }
+
+        if (findPerson == null) {
+            return String.format("%d번 사람이 존재하지 않습니다.", id);
+        } else {
+            findPerson.setName(name);
+            findPerson.setAge(age);
+        }
+
+        return String.format("%d번 사람이 수정되었습니다.", id);
+
+
+/*        // 수정 방법_ver.2
         Person findPerson = people.stream().filter(p -> p.getId() == id).findFirst().orElse(null);
 
         if (findPerson == null) {
             return String.format("%d 번 사람이 존재하지 않습니다.", id);
         }
 
-        return String.format("%d 번 사람이 수정되었습니다.", id);
+        return String.format("%d 번 사람이 수정되었습니다.", id);*/
     }
+
 
     @GetMapping("person/people")
     @ResponseBody

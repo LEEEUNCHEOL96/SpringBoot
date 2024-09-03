@@ -17,17 +17,17 @@ public class CarController {
     int lastId;
     List<Cars> cars;
 
-    CarController(){
+    CarController() {
         lastId = 0;
         cars = new ArrayList<>();
     }
 
     @GetMapping("/car/addCar")
     @ResponseBody
-    public String addCar (@RequestParam("name") String name ,
-                          @RequestParam ("madeBy") String madeBy ) {
-        lastId ++;
-        Cars c = new Cars(lastId,name,madeBy);
+    public String addCar(@RequestParam("name") String name,
+                         @RequestParam("madeBy") String madeBy) {
+        lastId++;
+        Cars c = new Cars(lastId, name, madeBy);
 
         cars.add(c);
 
@@ -37,17 +37,17 @@ public class CarController {
 
     @GetMapping("/car/remove")
     @ResponseBody
-    public String removeCar (@RequestParam("id") int id ){
+    public String removeCar(@RequestParam("id") int id) {
 
         Cars removeCar = null;
-        for ( Cars c : cars ){
-            if ( c.getId() == id){
+        for (Cars c : cars) {
+            if (c.getId() == id) {
                 removeCar = c;
             }
         }
-        if ( removeCar == null){
+        if (removeCar == null) {
             return id + "번 자동차는 존재하지 않습니다.";
-        }else {
+        } else {
             cars.remove(removeCar);
         }
 
@@ -55,21 +55,21 @@ public class CarController {
     }
 
 
-    @GetMapping ("/car/modify")
+    @GetMapping("/car/modify")
     @ResponseBody
-    public String modifyCar (@RequestParam("id") int id,
-                             @RequestParam("name") String name,
-                             @RequestParam("madeBy") String madeBy){
+    public String modifyCar(@RequestParam("id") int id,
+                            @RequestParam("name") String name,
+                            @RequestParam("madeBy") String madeBy) {
 
         Cars modifyCar = null;
-        for (Cars c : cars){
-            if( c.getId() == id){
+        for (Cars c : cars) {
+            if (c.getId() == id) {
                 modifyCar = c;
             }
         }
-        if(modifyCar == null){
+        if (modifyCar == null) {
             return id + "번 자동차는 존재하지 않습니다.";
-        }else {
+        } else {
             modifyCar.setName(name);
             modifyCar.setMadeBy(madeBy);
         }
@@ -81,12 +81,11 @@ public class CarController {
 
     @GetMapping("/car/list")
     @ResponseBody
-    public List<Cars> getCars(){
+    public List<Cars> getCars() {
         System.out.println(cars);
         return cars;
     }
 }
-
 
 
 @AllArgsConstructor
