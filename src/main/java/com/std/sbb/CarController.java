@@ -55,6 +55,28 @@ public class CarController {
     }
 
 
+    @GetMapping ("/car/modify")
+    @ResponseBody
+    public String modifyCar (@RequestParam("id") int id,
+                             @RequestParam("name") String name,
+                             @RequestParam("madeBy") String madeBy){
+
+        Cars modifyCar = null;
+        for (Cars c : cars){
+            if( c.getId() == id){
+                modifyCar = c;
+            }
+        }
+        if(modifyCar == null){
+            return id + "번 자동차는 존재하지 않습니다.";
+        }else {
+            modifyCar.setName(name);
+            modifyCar.setMadeBy(madeBy);
+        }
+
+
+        return id + "번째 자동차가 수정되었습니다.";
+    }
 
 
     @GetMapping("/car/list")
