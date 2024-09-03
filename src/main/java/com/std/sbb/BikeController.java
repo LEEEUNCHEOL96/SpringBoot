@@ -15,12 +15,12 @@ import java.util.List;
 @Controller
 public class BikeController {
     int lastId ;
-    List<Bike> bike ;
+    List<Bike> bikes ;
 
 
     BikeController(){
-        int lastId = 0;
-        bike = new ArrayList<>();
+        lastId = 0;
+        bikes = new ArrayList<>();
     }
 
     @GetMapping("/bike/add")
@@ -31,7 +31,7 @@ public class BikeController {
         lastId ++;
         Bike b = new Bike(lastId, name, CC);
 
-        bike.add(b);
+        bikes.add(b);
 
         return b.getId() + "번 바이크가 추가되었습니다.";
     }
@@ -39,19 +39,12 @@ public class BikeController {
     @GetMapping("/bike/remove")
     @ResponseBody
     public String removeBike (@RequestParam("id") int id){
-
-
-        Bike removeBike = null;
-        for ( Bike bike : bike){
-            if ( bike.getId() == id){
-                removeBike = bike;
-            }
-        }
+        Bike removeBike = findBikeByID(id);
 
         if( removeBike == null){
             return id + "번 바이크는 존재하지 않습니다.";
         }else {
-            bike.remove(removeBike);
+            bikes.remove(removeBike);
         }
 
         return id + "번 바이크가 삭제되었습니다.";
@@ -59,17 +52,12 @@ public class BikeController {
 
     @GetMapping("/bike/modify")
     @ResponseBody
-    public String modifyModify (@RequestParam("id") int id,
+    public String modifyBike (@RequestParam("id") int id,
                                 @RequestParam("name") String name,
                                 @RequestParam("CC") int CC){
 
-        Bike findBike = null;
+        Bike findBike = findBikeByID(id);
 
-        for(Bike bike : bike){
-            if (bike.getId()== id){
-                findBike = bike;
-            }
-        }
         if (findBike == null ){
             return id + "번 바이크는 존재하지 않습니다.";
         }else {
@@ -82,11 +70,19 @@ public class BikeController {
     @GetMapping("/bike/list")
     @ResponseBody
     public List<Bike> getBike(){
-        System.out.println(bike);
-        return bike;
+        System.out.println(bikes);
+        return bikes;
     }
 
+    private Bike findBikeByID (int id){
+        for ( Bike b : bikes){
+            if (b.getId()== id){
+                return b;
+            }
+        } return null;
+    }
 }
+
 
 @AllArgsConstructor
 @Getter

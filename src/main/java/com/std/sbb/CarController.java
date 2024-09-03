@@ -39,12 +39,8 @@ public class CarController {
     @ResponseBody
     public String removeCar(@RequestParam("id") int id) {
 
-        Cars removeCar = null;
-        for (Cars c : cars) {
-            if (c.getId() == id) {
-                removeCar = c;
-            }
-        }
+        Cars removeCar = findCarById(id);
+
         if (removeCar == null) {
             return id + "번 자동차는 존재하지 않습니다.";
         } else {
@@ -60,12 +56,8 @@ public class CarController {
                             @RequestParam("name") String name,
                             @RequestParam("madeBy") String madeBy) {
 
-        Cars modifyCar = null;
-        for (Cars c : cars) {
-            if (c.getId() == id) {
-                modifyCar = c;
-            }
-        }
+        Cars modifyCar = findCarById(id);
+
         if (modifyCar == null) {
             return id + "번 자동차는 존재하지 않습니다.";
         } else {
@@ -83,6 +75,14 @@ public class CarController {
     public List<Cars> getCars() {
         System.out.println(cars);
         return cars;
+    }
+
+    private Cars findCarById (int id ){
+        for ( Cars c : cars){
+            if (c.getId()== id){
+                return c;
+            }
+        } return null;
     }
 }
 

@@ -46,12 +46,8 @@ public class PersonController {
     @ResponseBody
     public String removePerson(@RequestParam("id") int id) {
         // 삭제 방법_ver.1
-        Person removePerson = null;
-        for (Person person : people) {
-            if (person.getId() == id) {
-                removePerson = person;
-            }
-        }
+        Person removePerson = findPersonById(id);
+
         if (removePerson == null) {
             return String.format("%d번 사람이 존재하지 않습니다.", id);
         } else {
@@ -75,14 +71,7 @@ public class PersonController {
                          @RequestParam("name") String name,
                          @RequestParam("age") int age) {
         // 수정 방법_ver.1
-        Person findPerson = null;
-
-        for (Person person : people) {
-            if (person.getId() == id) {
-
-                findPerson = person;
-            }
-        }
+        Person findPerson = findPersonById(id);
 
         if (findPerson == null) {
             return String.format("%d번 사람이 존재하지 않습니다.", id);
@@ -91,7 +80,7 @@ public class PersonController {
             findPerson.setName(name);
             findPerson.setAge(age);
         }
-            return String.format("%d번 사람이 수정되었습니다.", id);
+        return String.format("%d번 사람이 수정되었습니다.", id);
 
 /*        // 수정 방법_ver.2
         Person findPerson = people.stream().filter(p -> p.getId() == id).findFirst().orElse(null);
@@ -103,7 +92,16 @@ public class PersonController {
         return String.format("%d 번 사람이 수정되었습니다.", id);
         }*/
     }
+
+    private Person findPersonById(int id) {
+        for (Person person : people) {
+            if (person.getId() == id) {
+                return person;
+            }
+        } return null;
+    }
 }
+
 
 @AllArgsConstructor
 @Getter
