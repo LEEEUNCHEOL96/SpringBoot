@@ -34,6 +34,29 @@ public class CarController {
         return c.getId() + "번 자동차가 추가되었습니다.";
     }
 
+
+    @GetMapping("/car/remove")
+    @ResponseBody
+    public String removeCar (@RequestParam("id") int id ){
+
+        Cars removeCar = null;
+        for ( Cars c : cars ){
+            if ( c.getId() == id){
+                removeCar = c;
+            }
+        }
+        if ( removeCar == null){
+            return id + "번 자동차는 존재하지 않습니다.";
+        }else {
+            cars.remove(removeCar);
+        }
+
+        return id + "번 자동차가 삭제되었습니다.";
+    }
+
+
+
+
     @GetMapping("/car/list")
     @ResponseBody
     public List<Cars> getCars(){
